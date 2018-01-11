@@ -1,7 +1,6 @@
 import Data.List.Split
 
-sort' :: (Ord a) => [a] -> [a]
-
+--sort' :: (Ord a) => [a] -> [a]
 sort' x = case x of []     -> []
                     a:[]   -> [a]
                     a:b:[] -> if a < b then [a,b] else [b,a]
@@ -10,7 +9,7 @@ sort' x = case x of []     -> []
                                     sortedLeft    = (sort' . fst) unsortedParts
                                     sortedRight   = (sort' . snd) unsortedParts
 
-merge :: (Ord a) => [a] -> [a] -> [a]
+--merge :: (Ord a) => [a] -> [a] -> [a]
 merge x [] = x
 merge [] x = x
 merge left@(lHead:lTail) right@(rHead:rTail)
@@ -19,12 +18,8 @@ merge left@(lHead:lTail) right@(rHead:rTail)
 
 split' :: [a] -> ([a], [a])
 split' list = toTuple (chunksOf (halfSize list) list)
+              where halfSize list = (ceiling . (/ 2) . fromIntegral . length) list
 
-toTuple :: [[a]] -> ([a], [a])
-toTuple x
- | len == 2 = (x!!0, x!!1)
- | len == 1 = (x!!0, [])
-  where len = length x
-
-halfSize :: [a] -> Int
-halfSize list = (ceiling . (/ 2) . fromIntegral . length) list
+--toTuple :: [[a]] -> ([a], [a])
+toTuple [x] = (x,[])
+toTuple [x,y] = (x,y)
