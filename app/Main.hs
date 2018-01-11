@@ -9,14 +9,14 @@ main = someFunc
 import Data.List.Split
 
 sort' :: (Ord a) => [a] -> [a]
-sort' [] = []
-sort' [a] = [a]
-sort' [a,b] = if a < b then [a,b] else [b,a]
-sort' list =
-  let unsortedParts = split' list
-      left     = sort' (fst unsortedParts)
-      right    = sort' (snd unsortedParts)
-  in merge left right
+
+sort' x = case x of []     -> []
+                    a:[]   -> [a]
+                    a:b:[] -> if a < b then [a,b] else [b,a]
+                    list   -> let unsortedParts = split' list
+                                  left          = sort' (fst unsortedParts)
+                                  right         = sort' (snd unsortedParts)
+                              in merge left right
 
 merge :: (Ord a) => [a] -> [a] -> [a]
 merge x [] = x
