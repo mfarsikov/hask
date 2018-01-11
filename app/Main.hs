@@ -8,15 +8,15 @@ main = someFunc
 -}
 import Data.List.Split
 
-lucky :: (Integral a) => a -> String
-lucky 7 = "lucky"
-lucky x = "unlucky"
-
 sort' :: (Ord a) => [a] -> [a]
 sort' [] = []
 sort' [a] = [a]
 sort' [a,b] = if a < b then [a,b] else [b,a]
-sort' list = merge (sort' (fst (split' list))) (sort' (snd (split' list)))
+sort' list =
+  let unsortedParts = split' list
+      left     = sort' (fst unsortedParts)
+      right    = sort' (snd unsortedParts)
+  in merge left right
 
 merge :: (Ord a) => [a] -> [a] -> [a]
 merge x [] = x
