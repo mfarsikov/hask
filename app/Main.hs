@@ -1,11 +1,3 @@
-{-
-module Main where
-
-import Lib
-
-main :: IO ()
-main = someFunc
--}
 import Data.List.Split
 
 sort' :: (Ord a) => [a] -> [a]
@@ -13,10 +5,10 @@ sort' :: (Ord a) => [a] -> [a]
 sort' x = case x of []     -> []
                     a:[]   -> [a]
                     a:b:[] -> if a < b then [a,b] else [b,a]
-                    list   -> let unsortedParts = split' list
-                                  left          = sort' (fst unsortedParts)
-                                  right         = sort' (snd unsortedParts)
-                              in merge left right
+                    list   -> merge sortedLeft sortedRight
+                              where unsortedParts = split' list
+                                    sortedLeft    = (sort' . fst) unsortedParts
+                                    sortedRight   = (sort' . snd) unsortedParts
 
 merge :: (Ord a) => [a] -> [a] -> [a]
 merge x [] = x
@@ -35,4 +27,4 @@ toTuple x
   where len = length x
 
 halfSize :: [a] -> Int
-halfSize l = ceiling (fromIntegral (length l) / 2)
+halfSize list = (ceiling . (/ 2) . fromIntegral . length) list
