@@ -13,9 +13,9 @@ sort' x = case x of []     -> []
 merge :: (Ord a) => [a] -> [a] -> [a]
 merge x [] = x
 merge [] x = x
-merge first@(xHead:xTail) second@(yHead:yTail)
-  | xHead > yHead     = yHead : merge yTail first
-  | otherwise         = xHead : merge xTail second
+merge left@(lHead:lTail) right@(rHead:rTail)
+  | lHead > rHead     = rHead : merge rTail left
+  | otherwise         = lHead : merge lTail right
 
 split' :: [a] -> ([a], [a])
 split' list = toTuple (chunksOf (halfSize list) list)
