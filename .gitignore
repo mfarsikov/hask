@@ -1,0 +1,5 @@
+.stack-work/
+hask.cabal
+*~
+.idea
+hask.iml
